@@ -15,8 +15,7 @@ driver = webdriver.Chrome()
 
 driver.get(url)
 sleep(3)
-# input_find = driver.find_element('xpath',
-#                                 "//div[@class='header-top-in']/div[@class ='search-form header-search-form']/form/input[@type='search']")
+
 input_find = driver.find_element('xpath',
                                  "//div[@class='header-bottom']/div/div/div[@class ='search-form header-search-form']/form/input[@type='search']")
 
@@ -57,24 +56,19 @@ all_char = driver.find_element('xpath', '//button[@type="button" and contains (@
 # sleep(1)
 # all_char.click()
 characteristics = driver.find_elements('xpath', '//div[@class="br-pr-chr-item"]')
-print('len all: ', len(characteristics))
 characteristics_res = dict()
 j = 0
 for char in characteristics:
     j += 1
-    print('j: ', j)
     charact = char.find_elements('xpath', './/div/div/span')
     for i in range(1, len(charact) + 1):
-        print('i: ', i)
         if i % 2 == 0:
             value = charact[i - 1].get_attribute("textContent").strip().replace('\n', '').replace('\t', '').replace(' ',
                                                                                                                     '')
-            print('value: ', charact[i - 1].get_attribute("outerHTML"))
             characteristics_res.update({key: value})
         else:
             key = charact[i - 1].get_attribute("textContent").strip().replace('\n', '').replace('\t', '').replace(' ',
                                                                                                                   '')
-            print('key: ', charact[i - 1].get_attribute("outerHTML"))
 print(characteristics_res)
 div_img = driver.find_element('xpath', '//div[@class="slick-track"]')
 img_all = div_img.find_elements('xpath', './/img')
